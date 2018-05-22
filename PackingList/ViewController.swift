@@ -47,6 +47,16 @@ class ViewController: UIViewController {
             constraint.constant = isMenuOpen ? -100 : 0
             return
         }
+
+        if constraint.identifier == "TitleCenterY" {
+            constraint.isActive = false
+
+            let newConstraint = NSLayoutConstraint(item: titleLabel, attribute: .centerY, relatedBy: .equal, toItem: titleLabel.superview, attribute: .centerY, multiplier: isMenuOpen ? 0.67 : 1.0, constant: 5.0)
+            newConstraint.identifier = "TitleCenterY"
+            newConstraint.isActive = true
+
+            return
+        }
     })
     let angle = self.isMenuOpen ? CGFloat.pi / 4 : 0
     self.buttonMenu.transform = CGAffineTransform(rotationAngle: angle)

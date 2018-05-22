@@ -42,20 +42,26 @@ class ViewController: UIViewController {
   
   @IBAction func actionToggleMenu(_ sender: AnyObject) {
     isMenuOpen = !isMenuOpen
+    titleLabel.superview?.constraints.forEach({ (constraint) in
+        if constraint.firstItem === titleLabel && constraint.firstAttribute == .centerX {
+            constraint.constant = isMenuOpen ? -100 : 0
+            return
+        }
+    })
+    let angle = self.isMenuOpen ? CGFloat.pi / 4 : 0
+    self.buttonMenu.transform = CGAffineTransform(rotationAngle: angle)
     menuHeightConstraint.constant = isMenuOpen ? 200.0 : 60.0
     titleLabel.text = isMenuOpen ? "Select Item" : "Packing List"
 
-    UIView.animate(withDuration: 0.2, delay: 0.0, options: [.curveEaseOut], animations: {
-        self.view.layoutIfNeeded()
-    }, completion: nil)
-
-//    UIView.animate(withDuration: 1.0, delay: 0.0,
-//                   usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0,
-//                   options: .curveEaseIn,
-//                   animations: {
-//                    self.view.layoutIfNeeded()
+//    UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1.0, options: [.curveEaseOut], animations: {
+//        self.view.layoutIfNeeded()
 //    }, completion: nil)
 
+    UIView.animate(withDuration: 0.2, delay: 0.0, options: [.curveEaseOut], animations: {
+        self.view.layoutIfNeeded()
+    }, completion: { (finished) in
+
+    })
   }
   
   func showItem(_ index: Int) {

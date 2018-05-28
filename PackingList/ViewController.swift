@@ -63,15 +63,25 @@ class ViewController: UIViewController {
     menuHeightConstraint.constant = isMenuOpen ? 200.0 : 60.0
     titleLabel.text = isMenuOpen ? "Select Item" : "Packing List"
 
-//    UIView.animate(withDuration: 0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1.0, options: [.curveEaseOut], animations: {
-//        self.view.layoutIfNeeded()
-//    }, completion: nil)
-
     UIView.animate(withDuration: 0.2, delay: 0.0, options: [.curveEaseOut], animations: {
         self.view.layoutIfNeeded()
     }, completion: { (finished) in
 
     })
+
+    if isMenuOpen {
+        slider = HorizontalItemList(inView: view)
+        slider.didSelectItem = { index in
+            print("add \(index)")
+            self.items.append(index)
+            self.tableView.reloadData()
+            self.actionToggleMenu(self)
+        }
+
+        self.titleLabel.superview?.addSubview(slider)
+    }else {
+        slider.removeFromSuperview()
+    }
   }
   
   func showItem(_ index: Int) {

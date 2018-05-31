@@ -73,7 +73,7 @@ class HorizontalItemList: UIScrollView {
       return
     }
     
-    UIView.animate(withDuration: 1.0, delay: 0.01, usingSpringWithDamping: 0.5,
+    UIView.animate(withDuration: 1.0, delay: 0.01, usingSpringWithDamping: 0.7,
       initialSpringVelocity: 10.0, options: .curveEaseIn,
       animations: {
         self.alpha = 1.0
